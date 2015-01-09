@@ -91,7 +91,7 @@ if [ "$SSHD_CONFIG" != '' ]; then
 	fi;
 
 	# If there's nothing left in the moduli file (or it didn't exist at all), we should populate it
-	if [ "$(stat -nf %z "$MODULI")" -lt 10 ]; then
+	if [ "$(stat --printf=%s "$MODULI")" -lt 10 ]; then
 		runcmd rm "$MODULI";
 		runcmd ssh-keygen -T "$MODULI" -f <(ssh-keygen -q -G /dev/stdout -b 4096 2> >(while read line; do echo "+++ ${line}" > /dev/stderr; done));
 	fi;
