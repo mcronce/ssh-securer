@@ -106,7 +106,7 @@ if [ "$SSHD_CONFIG" != '' ]; then
 	fi;
 
 	# Get rid of DSA and ECDSA keys; create RSA and Ed25519 if they don't exist
-	runcmd sed -i 's/^\s*HostKey/d' "$SSHD_CONFIG";
+	runcmd sed -i '/^\s*HostKey/d' "$SSHD_CONFIG";
 	lines_inserted=$((${lines_inserted} + 1));
 	runcmd sed -i "${lines_inserted}iHostKey ${SSHD_CONFIG_DIR}/ssh_host_ed25519_key" "$SSHD_CONFIG";
 	lines_inserted=$((${lines_inserted} + 1));
