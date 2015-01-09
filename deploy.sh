@@ -75,7 +75,7 @@ if [ "$SSHD_CONFIG" != '' ]; then
 	# Fix key exchange algorithm settings if needed
 	grep '^\s*KexAlgorithms\s\+' "$SSHD_CONFIG" &>/dev/null;
 	if [ "$?" -eq 0 ]; then
-		runcmd sed -i 's/^\(\s*\)KexAlgorithms\s\+.*$/\1KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256/';
+		runcmd sed -i 's/^\(\s*\)KexAlgorithms\s\+.*$/\1KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256/' "$SSHD_CONFIG";
 	else
 		lines_inserted=$((${lines_inserted} + 1));
 		runcmd sed -i "${lines_inserted}i\\KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256" "$SSHD_CONFIG";
@@ -99,7 +99,7 @@ if [ "$SSHD_CONFIG" != '' ]; then
 	# Force v2 protocol
 	grep '^\s*Protocol\s\+' "$SSHD_CONFIG" &>/dev/null;
 	if [ "$?" -eq 0 ]; then
-		runcmd sed -i 's/^\(\s*\)Protocol\s\+.*$/\1Protocol 2/';
+		runcmd sed -i 's/^\(\s*\)Protocol\s\+.*$/\1Protocol 2/' "$SSHD_CONFIG";
 	else
 		lines_inserted=$((${lines_inserted} + 1));
 		runcmd sed -i "${lines_inserted}iProtocol 2" "$SSHD_CONFIG";
