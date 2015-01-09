@@ -133,7 +133,7 @@ if [ "$SSHD_CONFIG" != '' ]; then
 	# Limit MAC algos to good modern ones with long keys, ETM only
 	grep '^\s*MACs\s\+' "$SSHD_CONFIG" &>/dev/null;
 	if [ "$?" -eq 0 ]; then
-		runcmd sed -i 's/^\(\s*\)MACs\s\+.*$/\1MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com' "$SSHD_CONFIG";
+		runcmd sed -i 's/^\(\s*\)MACs\s\+.*$/\1MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com/' "$SSHD_CONFIG";
 	else
 		lines_inserted=$((${lines_inserted} + 1));
 		runcmd sed -i "${lines_inserted}iMACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com" "$SSHD_CONFIG";
