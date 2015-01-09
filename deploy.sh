@@ -87,7 +87,7 @@ if [ "$SSHD_CONFIG" != '' ]; then
 		# Ugly hack for portable in-place awk
 		runcmd awk '$5 > 2000' "$MODULI" > >(cat <(sleep 1) - > "$MODULI");
 	else
-		touch "$MODULI";
+		runcmd touch "$MODULI";
 	fi;
 
 	# If there's nothing left in the moduli file (or it didn't exist at all), we should populate it
@@ -111,9 +111,9 @@ if [ "$SSHD_CONFIG" != '' ]; then
 	runcmd sed -i "${lines_inserted}iHostKey ${SSHD_CONFIG_DIR}/ssh_host_ed25519_key" "$SSHD_CONFIG";
 	lines_inserted=$((${lines_inserted} + 1));
 	runcmd sed -i "${lines_inserted}iHostKey ${SSHD_CONFIG_DIR}/ssh_host_rsa_key" "$SSHD_CONFIG";
-	rm -f "${SSHD_CONFIG_DIR}/ssh_host_key{,.pub}";
-	rm -f "${SSHD_CONFIG_DIR}/ssh_host_dsa_key{,.pub}";
-	rm -f "${SSHD_CONFIG_DIR}/ssh_host_ecdsa_key{,.pub}";
+	runcmd rm -f "${SSHD_CONFIG_DIR}/ssh_host_key{,.pub}";
+	runcmd rm -f "${SSHD_CONFIG_DIR}/ssh_host_dsa_key{,.pub}";
+	runcmd rm -f "${SSHD_CONFIG_DIR}/ssh_host_ecdsa_key{,.pub}";
 	if [ ! -f "${SSHD_CONFIG_DIR}/ssh_host_ed25519_key" ] || [ ! -f "${SSHD_CONFIG_DIR}/ssh_host_ed25519_key.pub" ]; then
 		runcmd ssh-keygen -t ed25519 -f /etc/ssh_host_ed25519_key < /dev/null;
 	fi;
