@@ -115,10 +115,10 @@ if [ "$SSHD_CONFIG" != '' ]; then
 	runcmd rm -f "${SSHD_CONFIG_DIR}/ssh_host_dsa_key{,.pub}";
 	runcmd rm -f "${SSHD_CONFIG_DIR}/ssh_host_ecdsa_key{,.pub}";
 	if [ ! -f "${SSHD_CONFIG_DIR}/ssh_host_ed25519_key" ] || [ ! -f "${SSHD_CONFIG_DIR}/ssh_host_ed25519_key.pub" ]; then
-		runcmd ssh-keygen -t ed25519 -f /etc/ssh_host_ed25519_key < /dev/null;
+		runcmd ssh-keygen -t ed25519 -f "${SSHD_CONFIG_DIR}/ssh_host_ed25519_key" < /dev/null;
 	fi;
 	if [ ! -f "${SSHD_CONFIG_DIR}/ssh_host_rsa_key" ] || [ ! -f "${SSHD_CONFIG_DIR}/ssh_host_rsa_key.pub" ]; then
-		runcmd ssh-keygen -t rsa -b 4096 -f /etc/ssh_host_rsa_key < /dev/null;
+		runcmd ssh-keygen -t rsa -b 4096 -f "${SSHD_CONFIG_DIR}/ssh_host_rsa_key" < /dev/null;
 	fi;
 
 	# Limit symmetric ciphers to good modern ones
